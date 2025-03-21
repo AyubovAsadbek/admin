@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
+import { LanguageProvider } from "./context/LanguageContext";
+
 import "./index.css";
 import Login from "./components/Login";
 import Home from "./pages/Home";
@@ -13,6 +15,7 @@ import Settings from "./components/Settings";
 import Exams from "./components/Exams";
 import AddTeachers from "./components/AddTeachers";
 import ThemeSwitcher from "./components/ThemeSwitcher";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 
 function App() {
   const users = [
@@ -60,23 +63,26 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Router>
-        <ThemeSwitcher />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="dashboard_home" element={<Dashboard_home />} />
-            <Route path="teachers" element={<Teachers />} />
-            <Route path="add_teachers" element={<AddTeachers />} />
-            <Route path="students" element={<Students />} />
-            <Route path="billing" element={<Billing users={users} />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="exams" element={<Exams />} />
-          </Route>
-        </Routes>
-      </Router>
+      <LanguageProvider>
+        <Router>
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route path="dashboard_home" element={<Dashboard_home />} />
+              <Route path="teachers" element={<Teachers />} />
+              <Route path="add_teachers" element={<AddTeachers />} />
+              <Route path="students" element={<Students />} />
+              <Route path="billing" element={<Billing users={users} />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="exams" element={<Exams />} />
+            </Route>
+          </Routes>
+        </Router>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

@@ -4,8 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../constants/translations";
+import { useTheme } from "../context/ThemeContext";
 
 const Signup = () => {
+  const { theme } = useTheme();
+  const { language } = useLanguage();
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,18 +46,22 @@ const Signup = () => {
 
   return (
     <div className="text-center">
-      <h1 className="text-center font-medium pt-[98px] text-[45px] text-[#4F4F4F] pb-[53px]">
-        Welcome, Sign up
+      <h1
+        className={`text-center font-medium pt-[98px] text-[45px] ${
+          theme === "light" ? "text-[#4F4F4F]" : "text-white "
+        }`}
+      >
+        {translations[language].singUptitle}
       </h1>
       <div className="mx-auto w-[512px] h-[494px]  px-[142px] flex flex-col gap-[34px]">
         <p className="text-center text-[#667085] pt-[72px] font-inter">
-          It is our great pleasure to have you on board!
+          {translations[language].singUpDescription}
         </p>
         <form className="flex flex-col gap-[14px]" onSubmit={register}>
           <input
             required
             className="p-2 w-full border border-[#A7A7A7] bg-transparent"
-            placeholder="Enter your Email"
+            placeholder={translations[language].enterEmail}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -60,7 +69,7 @@ const Signup = () => {
           <input
             required
             className="p-2 w-full border border-[#A7A7A7] bg-transparent"
-            placeholder="Create your Login"
+            placeholder={translations[language].createLogin}
             type="text"
             value={fullname}
             onChange={(e) => setFullname(e.target.value)}
@@ -69,7 +78,7 @@ const Signup = () => {
             <input
               required
               className="p-2 w-full border border-[#A7A7A7] pr-10 bg-transparent"
-              placeholder="Create your Password"
+              placeholder={translations[language].createPassword}
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -86,12 +95,12 @@ const Signup = () => {
             type="submit"
             className="bg-[#2D88D4] w-full py-3 rounded text-white border border-[#2D88D4] transition-all duration-300 hover:bg-white hover:text-[#2D88D4]"
           >
-            Sign up
+            {translations[language].singUp}
           </button>
         </form>
         <Link className="w-full" to={"/login"}>
           <button className="w-full py-3 rounded text-[#2D88D4] border border-[#2D88D4] hover:bg-[#2D88D4] hover:text-white transition-all duration-300">
-            Log in
+            {translations[language].logIn}
           </button>
         </Link>
       </div>

@@ -4,8 +4,14 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../constants/translations";
+import { useTheme } from "../context/ThemeContext";
 
 const Login = () => {
+  const { language } = useLanguage();
+  const { theme } = useTheme();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -43,20 +49,24 @@ const Login = () => {
   return (
     <div className="text-center">
       <ToastContainer />
-      <h1 className="text-center font-medium pt-[98px] text-[45px] text-[#4F4F4F] pb-[53px]">
-        Welcome, Log into your account
+      <h1
+        className={`text-center font-medium pt-[98px] text-[45px] ${
+          theme === "light" ? "text-[#4F4F4F]" : "text-white "
+        } pb-[53px]`}
+      >
+        {translations[language].welcomeLogin}
       </h1>
 
       <div className="mx-auto w-[512px] h-[494px]  px-[142px] flex flex-col gap-[34px]">
         <p className="text-center text-[#667085] pt-[30px] font-inter">
-          It is our great pleasure to have you on board!
+          {translations[language].singUpDescription}
         </p>
 
         <form className="flex flex-col gap-[14px]" onSubmit={handleLogin}>
           <input
             required
             className="p-2 w-full border border-[#A7A7A7] rounded bg-transparent"
-            placeholder="Enter your Login"
+            placeholder={translations[language].enterLogin}
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -66,7 +76,7 @@ const Login = () => {
             <input
               required
               className="p-2 w-full border border-[#A7A7A7] rounded pr-10 bg-transparent"
-              placeholder="Enter Password"
+              placeholder={translations[language].enterPassword}
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -84,13 +94,13 @@ const Login = () => {
             type="submit"
             className="w-full bg-[#2D88D4] py-3 rounded border border-[#2D88D4] text-white transition-all duration-300 hover:bg-white hover:text-[#2D88D4]"
           >
-            Login
+            {translations[language].logIn}
           </button>
         </form>
 
         <Link className="w-full" to={"/signup"}>
           <button className="border border-[#2D88D4] w-full py-3 rounded text-[#2D88D4] hover:bg-[#2D88D4] hover:text-white transition-all duration-300">
-            Sign Up
+            {translations[language].singUp}
           </button>
         </Link>
       </div>
